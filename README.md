@@ -36,7 +36,7 @@ Run the CacheKiller executable to start the program. You will be prompted to con
 
 ### Example
 
-```sh
+```
 $ ./CacheKiller
 CacheKiller! This program will help you clean up your system's memory and cache.
 Do you want to clear pagecache, dentries, and inodes? (y/n): y
