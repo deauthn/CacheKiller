@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include <fstream>
 #include <string>
+#include <unistd.h>
 
 void logAction(const std::string &action)
 {
@@ -11,7 +12,8 @@ void logAction(const std::string &action)
 
 bool executeCommand(const std::string &command)
 {
-    int result = system(command.c_str());
+    std::string sudoCommand = "sudo " + command;
+    int result = system(sudoCommand.c_str());
     if (result != 0)
     {
         std::cerr << "Error | " << command << std::endl;
@@ -23,7 +25,7 @@ bool executeCommand(const std::string &command)
 void clearPageCache()
 {
     std::cout << "Clearing pagecache, dentries, and inodes..." << std::endl;
-    if (executeCommand("sync; echo 3 > /proc/sys/vm/drop_caches"))
+    if (executeCommand("sync; sh -c 'echo 3 > /proc/sys/vm/drop_caches'"))
     {
         logAction("Cleared pagecache, dentries, and inodes");
     }
@@ -74,6 +76,12 @@ bool getUserConfirmation(const std::string &action)
 
 int main(int argc, char *argv[])
 {
+    if (geteuid() != 0)
+    {
+        std::cerr << "This program must be run as root. Please use sudo." << std::endl;
+        return 1;
+    }
+
     std::cout << "CacheKiller! This program will help you clean up your system's memory and cache." << std::endl;
 
     if (getUserConfirmation("clear pagecache, dentries, and inodes"))

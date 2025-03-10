@@ -13,6 +13,7 @@ CacheKiller is a utility program designed to help you clean up your system's mem
 
 - A Unix-like operating system (I use Arch btw.)
 - C++ compiler
+- `sudo` privileges (no password required)
 
 ## Installation
 
@@ -28,7 +29,7 @@ CacheKiller is a utility program designed to help you clean up your system's mem
 
 ## Usage
 
-Run the CacheKiller executable to start the program. You will be prompted to confirm each action before it is executed.
+Run the CacheKiller executable to start the program. You will be prompted to confirm each action before it is executed. Ensure you use ROOT user.
 
 ```sh
 ./CacheKiller
